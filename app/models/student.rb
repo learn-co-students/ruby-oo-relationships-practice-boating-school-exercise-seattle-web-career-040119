@@ -24,13 +24,14 @@ class Student
   end
 
   def grade_percentage
-    total = BoatingTest.all.select do |bt|
+    student_tests = BoatingTest.all.select do |bt|
       bt.student == self
     end
-    x=total.map do |b|
-      b.boating_test_status=="passed"
-    end
-    x.count(true)/x.length.to_f
+    total_tests = student_tests.length
+    total_passes = student_tests.find_all do |test|
+      test.boating_test_status == "passed"
+    end.length.to_f
+    total_passes/total_tests
   end
 
 end
